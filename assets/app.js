@@ -47,7 +47,7 @@ function displayGifs(topic) {
 }
 // Function to make new buttons generated from user search
 $("#find-cartoon").on("click", function (event) {
-    // Bez yall said to do this each time :)
+    // Bez yall said to do this each time :) but it's not working?!
     event.preventDefault();
 
     var cartoon = $("#inputDefault").val();
@@ -68,14 +68,23 @@ $("#find-cartoon").on("click", function (event) {
                 var result = response.data;
                 var img = $("<img>");
                 var imgUrl = result[i].images.original.url;
+                var topics = [
+                    "Captain Caveman ", "Transformers ", "Voltron ", "He-man and the Masters of the Universe ", "Care Bears"
+                ];
+                var btn = $("<button>" + topics[i] + "</button>");
                 img.attr("src", imgUrl);
                 img.attr("alt", "cartoon image");
                 $("#gifs").prepend(img);
-
+                topics.push(cartoon);
+                console.log(topics);
+                btn.appendTo("#buttons");
+                
+                starterBtn();
             }
         }
-        
+
     });
+    starterBtn();
 })
 
 
