@@ -1,1 +1,8 @@
 
+.display-4, .lead {
+    text-align: center;
+}
+
+#buttons {
+    display: inline-block;
+}
