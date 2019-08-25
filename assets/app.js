@@ -1,5 +1,3 @@
-
-
 $(document).ready(function () {
     starterBtn();
 })
@@ -8,8 +6,8 @@ $(document).ready(function () {
 function starterBtn() {
     $("#buttons").empty();
     var topics = [
-        "Captain Caveman ", "Transformers ", "Voltron ", "He-man and the Masters of the Universe ", "Care Bears"
-    ];
+        "Captain Caveman ", "Transformers ", "Voltron ", "He-man and the Masters of the Universe ", "Care Bears"];
+    
 
     for (var i = 0; i < topics.length; i++) {
         var btn = $("<button>" + topics[i] + "</button>");
@@ -18,6 +16,7 @@ function starterBtn() {
         btn.attr("onclick", "displayGifs('" + topics[i] + "')");
         btn.appendTo("#buttons");
     }
+
 }
 // Gifs
 function displayGifs(topic) {
@@ -36,18 +35,33 @@ function displayGifs(topic) {
             for (var i = 1; i < 9; i++) {
                 var result = response.data;
                 var img = $("<img>");
-                var imgUrl = result[i].images.original.url;
+                var imgUrl = result[i].images.original_still.url;
+                img.addClass("gif")
                 img.attr("src", imgUrl);
                 img.attr("alt", "cartoon image");
+                img.attr("data-state", "still")
+                img.attr("data-animate", result[i].images.fixed_height.url);
                 $("#gifs").prepend(img);
 
             }
         }
+        $(".gif").on("click", function () {
+            var state = $(this).attr("data-state");
+            if (state === "still") {
+                $(this).attr("src", $(this).attr("data-animate"));
+                $(this).attr("data-state", "animate");
+            } else {
+                $(this).attr("src", $(this).attr("data-still"));
+                $(this).attr("data-state", "still");
+            }
+        });
     });
+
 }
+
 // Function to make new buttons generated from user search
 $("#find-cartoon").on("click", function (event) {
-    // Bez yall said to do this each time :) but it's not working?!
+    // Bez yall said to do this each time :) but it's not working?! It's in a form???
     event.preventDefault();
 
     var cartoon = $("#inputDefault").val();
@@ -66,39 +80,37 @@ $("#find-cartoon").on("click", function (event) {
         if (response.data.length > 1) {
             for (var i = 1; i < 9; i++) {
                 var result = response.data;
-                var img = $("<img>");
-                var imgUrl = result[i].images.original.url;
                 var topics = [
-                    "Captain Caveman ", "Transformers ", "Voltron ", "He-man and the Masters of the Universe ", "Care Bears"
-                ];
+                    "Captain Caveman ", "Transformers ", "Voltron ", "He-man and the Masters of the Universe ", "Care Bears"];
+                var img = $("<img>");
+                var imgUrl = result[i].images.original_still.url;
                 var btn = $("<button>" + topics[i] + "</button>");
+                img.addClass("gif");
                 img.attr("src", imgUrl);
                 img.attr("alt", "cartoon image");
+                img.attr("data-state", "still")
+                img.attr("data-animate", result[i].images.fixed_height.url);
                 $("#gifs").prepend(img);
                 topics.push(cartoon);
                 console.log(topics);
                 btn.appendTo("#buttons");
                 
+
                 starterBtn();
             }
         }
-
+        $(".gif").on("click", function () {
+            var state = $(this).attr("data-state");
+            if (state === "still") {
+                $(this).attr("src", $(this).attr("data-animate"));
+                $(this).attr("data-state", "animate");
+            } else {
+                $(this).attr("src", $(this).attr("data-still"));
+                $(this).attr("data-state", "still");
+            }
+        });
     });
     starterBtn();
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
