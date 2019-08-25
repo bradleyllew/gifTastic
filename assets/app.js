@@ -93,12 +93,14 @@ $("#find-cartoon").on("click", function (event) {
                 $("#gifs").prepend(img);
                 topics.push(cartoon);
                 console.log(topics);
+                // not working???
                 btn.appendTo("#buttons");
                 
 
                 starterBtn();
             }
         }
+        // WIll animate, but not re-animate???
         $(".gif").on("click", function () {
             var state = $(this).attr("data-state");
             if (state === "still") {
