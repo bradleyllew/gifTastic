@@ -37,12 +37,15 @@ function displayGifs() {
                 var result = response.data;
                 var img = $("<img>");
                 var imgUrl = result[i].images.original_still.url;
+                var rating = response.rating;
+                var pOne = $("<p>").text("Rating: " + rating);
                 img.addClass("gif")
                 img.attr("src", imgUrl);
                 img.attr("alt", "cartoon image");
                 img.attr("data-state", "still")
                 img.attr("data-animate", result[i].images.fixed_height.url);
                 img.attr("data-still", imgUrl);
+                $("#gifs").append(pOne);
                 $("#gifs").prepend(img);
 // Tried to add ratings in as well...to pull from API data, but couldn't get it to work :(
             }
@@ -80,12 +83,15 @@ $("#find-cartoon").on("click", function (event) {
                 var img = $("<img>");
                 var imgUrl = result[i].images.original_still.url;
                 var btn = $("<button>" + topics[i] + "</button>");
+                var rating = response.rating;
+                var pOne = $("<p>").text("Rating: " + rating);
                 img.addClass("gif");
                 img.attr("src", imgUrl);
                 img.attr("alt", "cartoon image");
                 img.attr("data-state", "still")
                 img.attr("data-animate", result[i].images.fixed_height.url);
                 img.attr("data-still", imgUrl);
+                $("#gifs").append(pOne);
                 $("#gifs").prepend(img);
                 // not working???
                 
